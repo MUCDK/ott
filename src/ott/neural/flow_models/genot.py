@@ -15,6 +15,8 @@ import functools
 import types
 from typing import Any, Callable, Dict, Optional, Tuple, Type, Union
 
+from tqdm.auto import tqdm
+
 import jax
 import jax.numpy as jnp
 
@@ -284,8 +286,9 @@ class GENOTLin(GENOTBase):
       valid_loader: Data loader for the validation data.
     """
     iter = -1
+    stop = False
     while True:
-      for batch in train_loader:
+      for batch in tqdm(train_loader):
         iter += 1
         if iter >= self.iterations:
           stop = True
@@ -382,8 +385,9 @@ class GENOTQuad(GENOTBase):
     """
     batch: Dict[str, jnp.array] = {}
     iter = -1
+    stop = False
     while True:
-      for batch in train_loader:
+      for batch in tqdm(train_loader):
         iter += 1
         if iter >= self.iterations:
           stop = True

@@ -86,8 +86,18 @@ class OTDataSet:
     }
 
   def __len__(self):
-    return len(self.source_lin
-              ) if self.source_lin is not None else len(self.source_quad)
+    n_source_lin = np.inf if self.source_lin is None else len(self.source_lin)
+    n_source_quad = np.inf if self.source_quad is None else len(
+        self.source_quad
+    )
+    n_target_lin = np.inf if self.target_lin is None else len(self.target_lin)
+    n_target_quad = np.inf if self.target_quad is None else len(
+        self.target_quad
+    )
+    return min(n_source_lin, n_source_quad, n_target_lin, n_target_quad)
+
+    # return len(self.source_lin
+    #           ) if self.source_lin is not None else len(self.source_quad)
 
 
 class ConditionalOTDataLoader:
